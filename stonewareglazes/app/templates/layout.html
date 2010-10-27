@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
-        <title>Tipfy Auth Example</title>
+        <title>Stoneware Glazes</title>
         <link rel="stylesheet" type="text/css" href="/static/styles/screen.css">
     </head>
     <body>
@@ -15,7 +15,13 @@
                         {%- endif %} <a href="{{ logout_url }}">Sign out</a>
                     {% else %}
                         Hi, there. <a href="{{ login_url }}">Sign in</a>
-                    {% endif %}</p>
+                    {% endif %}
+                    {% if goolge_user -%}
+                    <a href="{{goolge_logout_url}}">Sign out</a> of google account.
+                    {% endif %}
+                    
+                    </p>
+                    
                 </div>
             </div>
         </div>

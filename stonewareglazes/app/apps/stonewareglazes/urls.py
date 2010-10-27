@@ -28,13 +28,14 @@ def get_rules(app):
             Rule('/auth/signup', endpoint='auth/signup', handler='handlers.SignupHandler'),
             Rule('/auth/register', endpoint='auth/register', handler='handlers.RegisterHandler'),
 
-            Rule('/auth/facebook/', endpoint='auth/facebook', handler='handlers.FacebookAuthHandler'),
-            Rule('/auth/friendfeed/', endpoint='auth/friendfeed', handler='handlers.FriendFeedAuthHandler'),
-            Rule('/auth/google/', endpoint='auth/google', handler='handlers.GoogleAuthHandler'),
-            Rule('/auth/twitter/', endpoint='auth/twitter', handler='handlers.TwitterAuthHandler'),
-            Rule('/auth/yahoo/', endpoint='auth/yahoo', handler='handlers.YahooAuthHandler'),
+#            Rule('/auth/facebook/', endpoint='auth/facebook', handler='handlers.FacebookAuthHandler'),
+#            Rule('/auth/friendfeed/', endpoint='auth/friendfeed', handler='handlers.FriendFeedAuthHandler'),
+#            Rule('/auth/google/', endpoint='auth/google', handler='handlers.GoogleAuthHandler'),
+#            Rule('/auth/twitter/', endpoint='auth/twitter', handler='handlers.TwitterAuthHandler'),
+#            Rule('/auth/yahoo/', endpoint='auth/yahoo', handler='handlers.YahooAuthHandler'),
 
             Rule('/content', endpoint='content/index', handler='handlers.ContentHandler'),
+            Rule('/admin', endpoint='admin', handler='handlers.AdminHandler'),
         ]),
     ]
 
