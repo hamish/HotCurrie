@@ -12,16 +12,21 @@ from tipfy.ext.session import AllSessionMixins, SessionMiddleware
 from tipfy.ext.wtforms import Form, fields, validators
 
 from google.appengine.api import users
+from google.appengine.api import mail
+import random
+import string
 
 REQUIRED = validators.required()
+EMAIL = validators.email()
 
+PASSWORD_SEED= string.letters[:26]+string.digits[1:]+'!@#$%^&*'
 class LoginForm(Form):
-    username = fields.TextField('Username', validators=[REQUIRED])
+    username = fields.TextField('Username', validators=[REQUIRED, EMAIL])
     password = fields.PasswordField('Password', validators=[REQUIRED])
     remember = fields.BooleanField('Keep me signed in')
 
 class RegistrationForm(Form):
-    username = fields.TextField('Username', validators=[REQUIRED])
+    username = fields.TextField('Username', validators=[REQUIRED, EMAIL])
     message = fields.TextAreaField('Message')
 
 
@@ -138,6 +143,25 @@ class AdminHandler(BaseHandler):
     def get(self, **kwargs):
         return self.render_response('admin.html', form=self.form)
 
+    def createUser(self, username, message):
+        auth_id = 'own|%s' % username
+        password="".join( [random.choice(PASSWORD_SEED) for i in xrange(8)] )
+
+        user = self.auth_create_user(username, auth_id, password=password)
+        body=''
+        if message:
+            body += "%s\n" %message
+        body += "Your details are:\n"
+        body += "Username: %s\n" %username
+        body += "Password: %s\n" %password
+        body += "\n\nBest regards\nIan Currie\n" 
+        message = mail.EmailMessage(sender="hcurrie@gmail.com",
+        	to=username,
+        	subject="Stoneware Glazes Subscription",
+        	body=body)
+        message.send()
+        return user
+
     def post(self, **kwargs):
         redirect_url = self.redirect_path()
 
@@ -145,10 +169,8 @@ class AdminHandler(BaseHandler):
         if self.form.validate():
             username = self.form.username.data
             message = self.form.message.data
-            password = 'abcDef'
-            
-            auth_id = 'own|%s' % username
-            user = self.auth_create_user(username, auth_id, password=password)
+
+            user = self.createUser(username, message)
             if user:
                 self.set_message('success', 'User has been registered.', flash=True, life=5)
                 self.form.username.data=''
@@ -167,4 +189,13 @@ class AdminHandler(BaseHandler):
     def form(self):
         return RegistrationForm(self.request)
 
+class PaypalHandler(AdminHandler):
+    def post(self, **kwargs):
+        username=self.request.get('payer_email')
+        message="Thanks for your payment"
+        
+        
+        ### TODO DO Verification checks
+        user = self.createUser(username, message)
 
+        
