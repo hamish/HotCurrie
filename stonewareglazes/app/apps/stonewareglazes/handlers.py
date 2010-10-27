@@ -1,8 +1,10 @@
 from django.utils import simplejson
 
 from tipfy import (RequestHandler, RequestRedirect, Response, abort,
-    cached_property, redirect, url_for)
+    cached_property, redirect, redirect_to, url_for)
 from tipfy.ext.auth import MultiAuthMixin, login_required, user_required
+from tipfy.ext.blobstore import BlobstoreDownloadMixin, BlobstoreUploadMixin
+
 from tipfy.ext.auth.facebook import FacebookMixin
 from tipfy.ext.auth.friendfeed import FriendFeedMixin
 from tipfy.ext.auth.google import GoogleMixin
@@ -11,15 +13,26 @@ from tipfy.ext.jinja2 import Jinja2Mixin
 from tipfy.ext.session import AllSessionMixins, SessionMiddleware
 from tipfy.ext.wtforms import Form, fields, validators
 
+from apps.stonewareglazes.Model import Page
+from apps.stonewareglazes.roman import toRoman, fromRoman
+
 from google.appengine.api import users
 from google.appengine.api import mail
+from google.appengine.ext import blobstore
+from google.appengine.api import images 
 import random
 import string
+
 
 REQUIRED = validators.required()
 EMAIL = validators.email()
 
 PASSWORD_SEED= string.letters[:26]+string.digits[1:]+'!@#$%^&*'
+IMG_SERVING_SIZES = [
+              32, 48, 64, 72, 80, 90, 94, 104, 110, 120, 128, 144,
+              150, 160, 200, 220, 288, 320, 400, 512, 576, 640, 720,
+              800, 912, 1024, 1152, 1280, 1440, 1600]
+ 
 class LoginForm(Form):
     username = fields.TextField('Username', validators=[REQUIRED, EMAIL])
     password = fields.PasswordField('Password', validators=[REQUIRED])
@@ -93,6 +106,24 @@ class ContentHandler(BaseHandler):
     def get(self, **kwargs):
         return self.render_response('content.html', section='content')
 
+class PageListHandler(BaseHandler):
+    def getPages(self):
+        pages = Page.gql('ORDER BY sequenceNumber')
+        processedPages=[]
+        for page in pages:
+            p={
+               'url': url_for('page_def', number=page.pageLabel),
+               'name': 'Page %s' % (page.pageLabel),
+               }
+            processedPages.append(p)
+        return processedPages
+
+class BookHandler(PageListHandler):
+    def get(self):
+        processedPages = self.getPages()
+        arguments={'pages': self.getPages()}            
+        return self.render_response('Book.html', **arguments)
+    
 
 class LoginHandler(BaseHandler):
     def get(self, **kwargs):
@@ -141,7 +172,9 @@ class LogoutHandler(BaseHandler):
 
 class AdminHandler(BaseHandler):
     def get(self, **kwargs):
-        return self.render_response('admin.html', form=self.form)
+        upload_url = blobstore.create_upload_url(url_for('blobstore/upload'))
+
+        return self.render_response('admin.html', form=self.form, upload_url=upload_url)
 
     def createUser(self, username, message):
         auth_id = 'own|%s' % username
@@ -189,6 +222,75 @@ class AdminHandler(BaseHandler):
     def form(self):
         return RegistrationForm(self.request)
 
+def containsAny(str, set):
+    """Check whether 'str' contains ANY of the chars in 'set'"""
+    return 1 in [c in str for c in set]
+
+def getPageLabel(pageSequence):
+    label = toRoman(pageSequence+1)
+    if (pageSequence >= 14):
+        label= str(pageSequence-13)
+    return label
+
+class UploadHandler(BaseHandler, BlobstoreUploadMixin):
+    def post(self):
+        # 'file' is the name of the file upload field in the form.
+        upload_files = self.get_uploads('file')
+        blob_info = upload_files[0]
+        seqNum = int(blob_info.filename[17:20])
+        label = getPageLabel(seqNum)
+        #Save entry to datastore
+        page = Page()
+        page.blobKey=str(blob_info.key())
+        #page.name = upload_files
+        page.sequenceNumber = seqNum
+        page.pageLabel = label
+        page.put()
+        
+        response = redirect_to('home')
+        #response = redirect_to('blobstore/serve', resource=blob_info.key())
+        # Clear the response body.
+        response.data = ''
+        return response
+class PageHandler(BaseHandler, BlobstoreDownloadMixin):
+    #def get(self, **kwargs):
+    def get(self, number='1', size='21'):
+        pageLabel=number
+        sizeIndex=int(size)
+        #pageLabel = kwargs.get('number')
+        pages = Page.gql("WHERE pageLabel=:1", pageLabel)
+        page = pages.get()
+        url = images.get_serving_url(page.blobKey, size=IMG_SERVING_SIZES[sizeIndex], crop=False)
+        
+        if (containsAny(pageLabel, '0123456789')):
+            pageSequence = int(pageLabel)+ 13
+        else:
+            pageSequence = fromRoman(pageLabel)-1
+
+        arguments={
+            'pageImageURL':url,
+        }
+        
+        if(pageSequence>0):
+            prevLabel = getPageLabel(pageSequence - 1)
+            arguments['hasPrevious']=1
+            arguments['previousURL']=url_for('page', number=prevLabel, size=size)
+        if (pageSequence<223):
+            nextLabel = getPageLabel(pageSequence + 1)
+            arguments['hasNext']=1
+            arguments['nextURL']=url_for('page', number=nextLabel, size=size)
+
+        if(sizeIndex>0):
+            sizeStr=str(sizeIndex-1)
+            arguments['hasSmaller']=1
+            arguments['smallerURL']=url_for('page', number=number, size=sizeStr)
+        if(sizeIndex<29):
+            sizeStr=str(sizeIndex+1)
+            arguments['hasBigger']=1
+            arguments['biggerURL']=url_for('page', number=number, size=sizeStr)
+        
+        return self.render_response('Page.html', **arguments)
+        
 class PaypalHandler(AdminHandler):
     def post(self, **kwargs):
         username=self.request.get('payer_email')

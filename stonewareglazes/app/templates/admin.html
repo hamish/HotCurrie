@@ -20,7 +20,14 @@
     email address: <input type="text" name="payer_email">
     <input type="submit" />
     </form>
-    
+    Upload Book Page
+    <p>
+    <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
+Upload File: <input type="file" name="file"><br> 
+Page Number: <input type="text" name="pageNumber" > 
+            <input type="submit" name="submit" value="Submit">             
+            </form>
+</p>
     
 {% endblock %}
 

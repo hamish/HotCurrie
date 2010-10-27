@@ -1,9 +1,12 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-    <p>This is a <a href="http://www.tipfy.org/">tipfy</a> example for
-    authentication using multi-auth users system.</p>
+    <p>This is an online version of the bok Stoneware Glazes, A systematic approach by Ian Currie.</p>
 
-    <p>Users are required to save an account record to access <a href="{{ url_for('content/index') }}">protected content</a>.</p>
+    <p>A list of pages is available <a href="{{ url_for('book') }}">here</a>.</p>
+    <p>Jump to  <a href="{{ url_for('page_def', number='1') }}">Page 1</a>.</p>
+    
+    <p>Some pages are <a href="{{ url_for('page_def', number='2') }}">require an account</a>.</p>
+    
 {% endblock %}
 

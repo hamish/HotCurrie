@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<table>
+  <tr>
+    <td>
+      {% if hasPrevious %}
+      <a href="{{previousURL}}">previous</a>
+      {% endif %}
+    </td>
+    <td>
+      {% if hasBigger %}
+      <a href="{{biggerURL}}">bigger</a>
+      {% endif %}
+      {% if hasSmaller %}
+      <a href="{{smallerURL}}">smaller<a/>
+      {% endif %}
+    </td>
+    <td>
+	{% if hasNext %}
+	<a href="{{nextURL}}">next</a>
+	{% endif %}
+    </td>
+  </tr>
+  <tr>
+    <td colspan=3>
+	<img src="{{pageImageURL}}">
+    <td>
+  </tr>
+
+</table>
+
+{% endblock %}
+

@@ -3,3 +3,5 @@ bin
 *.pyc
 distlib
 etc
+var
+.installed.cfg

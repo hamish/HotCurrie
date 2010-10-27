@@ -32,6 +32,15 @@ def get_rules(app):
             Rule('/content', endpoint='content/index', handler='handlers.ContentHandler'),
             Rule('/admin', endpoint='admin', handler='handlers.AdminHandler'),
             Rule('/paypal/ipn', endpoint='ipn', handler='handlers.IpnHandler'),
+
+            #Rule('/', endpoint='home', handler='MainHandler'),
+            Rule('/book/', endpoint='book', handler='handlers.BookHandler'),
+            Rule('/book/page/<number>', endpoint='page_def', handler='handlers.PageHandler'),
+            Rule('/book/page/<number>/<size>', endpoint='page', handler='handlers.PageHandler'),
+            #Rule('/admin/', endpoint='home', handler='AdminHandler'),
+            Rule('/upload', endpoint='blobstore/upload', handler='handlers.UploadHandler'),
+
+
         ]),
     ]
 
