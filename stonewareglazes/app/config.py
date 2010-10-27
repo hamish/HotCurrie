@@ -18,6 +18,24 @@ config['tipfy'] = {
     ],
     # Enable the Hello, World! app example.
     'apps_installed': [
-        'apps.hello_world',
+        'apps.stonewareglazes',
     ],
+}
+config['tipfy.ext.session'] = {
+    'secret_key': 'abc',
+}
+
+config['tipfy.ext.auth.facebook'] = {
+    'api_key':    'XXXXXXXXXXXXXXX',
+    'app_secret': 'XXXXXXXXXXXXXXX',
+}
+
+config['tipfy.ext.auth.friendfeed'] = {
+    'consumer_key':    'XXXXXXXXXXXXXXX',
+    'consumer_secret': 'XXXXXXXXXXXXXXX',
+}
+
+config['tipfy.ext.auth.twitter'] = {
+    'consumer_key':    'XXXXXXXXXXXXXXX',
+    'consumer_secret': 'XXXXXXXXXXXXXXX',
 }
