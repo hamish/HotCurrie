@@ -31,6 +31,12 @@ def get_rules(app):
 
             Rule('/content', endpoint='content/index', handler='handlers.ContentHandler'),
             Rule('/admin', endpoint='admin', handler='handlers.AdminHandler'),
+            Rule('/admin/user', endpoint='admin-user', handler='handlers.AdminUserHandler'),
+            Rule('/admin/index', endpoint='admin-index', handler='handlers.AdminIndexHandler'),
+            Rule('/admin/load/index', endpoint='admin-load-index', handler='dataloader.LoadIndexHandler'),
+            #Rule('/admin/load/index', endoint='admin-load-index', handler='handlers.LoadIndexHandler'),
+            Rule('/admin/page/upgrade', endpoint='admin-page-upgrade', handler='dataloader.UpdatePageHandler'),
+            
             Rule('/paypal/ipn', endpoint='ipn', handler='handlers.IpnHandler'),
 
             #Rule('/', endpoint='home', handler='MainHandler'),
@@ -39,7 +45,8 @@ def get_rules(app):
             Rule('/book/page/<number>/<size>', endpoint='page', handler='handlers.PageHandler'),
             #Rule('/admin/', endpoint='home', handler='AdminHandler'),
             Rule('/upload', endpoint='blobstore/upload', handler='handlers.UploadHandler'),
-
+            
+            Rule('/book/index', endpoint='book-index', handler='handlers.IndexHandler'),
 
         ]),
     ]

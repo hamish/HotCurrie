@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% from '_form_macros.html' import form_field %}
+
+{% block body %}
+    <h1>Admin</h1>
+    <p>Fill the form to create a new account.</p>
+    <form method="post" action="{{ current_url }}" enctype="multipart/form-data" class="tipfy-form">
+        <ol>
+            <li>{{ form_field(form.username, class='medium') }}</li>
+            <li>{{ form_field(form.message, class='medium') }}</li>
+        </ol>
+        <fieldset class="submit">
+            <input type="submit" name="submit" value="{{ _('Register') }}">
+        </fieldset>
+    </form>
+ 
+    
+{% endblock %}
+

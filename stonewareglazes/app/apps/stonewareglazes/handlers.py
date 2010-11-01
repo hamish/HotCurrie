@@ -13,7 +13,7 @@ from tipfy.ext.jinja2 import Jinja2Mixin
 from tipfy.ext.session import AllSessionMixins, SessionMiddleware
 from tipfy.ext.wtforms import Form, fields, validators
 
-from apps.stonewareglazes.Model import Page
+from apps.stonewareglazes.Model import Page, IndexItem
 from apps.stonewareglazes.roman import toRoman, fromRoman
 
 from google.appengine.api import users
@@ -22,7 +22,8 @@ from google.appengine.ext import blobstore
 from google.appengine.api import images 
 import random
 import string
-
+import csv
+import logging
 
 REQUIRED = validators.required()
 EMAIL = validators.email()
@@ -41,7 +42,9 @@ class LoginForm(Form):
 class RegistrationForm(Form):
     username = fields.TextField('Username', validators=[REQUIRED, EMAIL])
     message = fields.TextAreaField('Message')
-
+class IndexForm(Form):
+    label = fields.TextField('Label', validators=[REQUIRED])
+    pagenumbers = fields.TextField('Page Numbers', validators=[REQUIRED])
 
 class BaseHandler(RequestHandler, MultiAuthMixin, Jinja2Mixin,
     AllSessionMixins):
@@ -124,7 +127,49 @@ class BookHandler(PageListHandler):
         arguments={'pages': self.getPages()}            
         return self.render_response('Book.html', **arguments)
     
+class AdminIndexHandler(BaseHandler):
+    @cached_property
+    def form(self):
+        return IndexForm(self.request)    
+    def getIndexItems(self):
+        items = IndexItem.gql('ORDER BY sequenceNumber')
+        processedItems=[]
+        for item in items:
+            reader = csv.reader([item.pageNumbers], skipinitialspace=True)
+            pageNumberList= list(reader)[0]
+            p={
+               'label': item.label,
+               'pages': pageNumberList
+               }
+            processedItems.append(p)
+        return processedItems
+    
+    def get(self, **kwargs):
+        Items = IndexItem.gql('ORDER BY label')
+        context = {
+            'form':       self.form,
+            'indexItems': self.getIndexItems()
+        }
+        return self.render_response('admin-index.html', **context)
+    def post(self, **kwargs):
 
+        if self.form.validate():
+            label = self.form.label.data
+            pagenumbers = self.form.pagenumbers.data
+            #reader = csv.reader([pagenumbers], skipinitialspace=True)
+            #pageNumberList= list(reader)[0]
+            item= IndexItem()
+            item.label=label
+            item.pageNumbers=pagenumbers
+            item.put()
+            return self.get(**kwargs)
+
+
+        self.set_message('error', 'Authentication failed. Please try again.',
+            life=None)
+        return self.get(**kwargs)
+    
+            
 class LoginHandler(BaseHandler):
     def get(self, **kwargs):
         redirect_url = self.redirect_path()
@@ -174,7 +219,12 @@ class AdminHandler(BaseHandler):
     def get(self, **kwargs):
         upload_url = blobstore.create_upload_url(url_for('blobstore/upload'))
 
-        return self.render_response('admin.html', form=self.form, upload_url=upload_url)
+        return self.render_response('admin.html', upload_url=upload_url)
+class AdminUserHandler(BaseHandler):
+    def get(self, **kwargs):
+        upload_url = blobstore.create_upload_url(url_for('blobstore/upload'))
+
+        return self.render_response('admin-user.html', form=self.form, upload_url=upload_url)
 
     def createUser(self, username, message):
         auth_id = 'own|%s' % username
@@ -235,19 +285,24 @@ def getPageLabel(pageSequence):
 class UploadHandler(BaseHandler, BlobstoreUploadMixin):
     def post(self):
         # 'file' is the name of the file upload field in the form.
+        logging.debug("UploadHandler")
+
         upload_files = self.get_uploads('file')
         blob_info = upload_files[0]
         seqNum = int(blob_info.filename[17:20])
         label = getPageLabel(seqNum)
         #Save entry to datastore
+        logging.debug("creating Page")
+
         page = Page()
         page.blobKey=str(blob_info.key())
         #page.name = upload_files
         page.sequenceNumber = seqNum
         page.pageLabel = label
         page.put()
-        
-        response = redirect_to('home')
+        logging.debug("redirecting")
+
+        response = redirect_to('admin')
         #response = redirect_to('blobstore/serve', resource=blob_info.key())
         # Clear the response body.
         response.data = ''
@@ -260,6 +315,12 @@ class PageHandler(BaseHandler, BlobstoreDownloadMixin):
         #pageLabel = kwargs.get('number')
         pages = Page.gql("WHERE pageLabel=:1", pageLabel)
         page = pages.get()
+        
+        if (page.loginRequired):
+            logging.debug("loginRequired:")
+            if not self.auth_current_user:
+                logging.debug("failed:")
+                return redirect(self.auth_login_url())
         url = images.get_serving_url(page.blobKey, size=IMG_SERVING_SIZES[sizeIndex], crop=False)
         
         if (containsAny(pageLabel, '0123456789')):
@@ -300,4 +361,4 @@ class PaypalHandler(AdminHandler):
         ### TODO DO Verification checks
         user = self.createUser(username, message)
 
-        
+
