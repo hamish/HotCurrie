@@ -16,9 +16,6 @@
                     {% else %}
                         Hi, there. <a href="{{ login_url }}">Sign in</a>
                     {% endif %}
-                    {% if goolge_user -%}
-                    <a href="{{goolge_logout_url}}">Sign out</a> of google account.
-                    {% endif %}
                     
                     </p>
                     
@@ -42,7 +39,11 @@
                 <div class="yui-b">
                     <ul class="menu">
                         <li{% if section == 'home' %} class="active"{% endif %}><a href="{{ url_for('home') }}">Home</a></li>
-                        <li{% if section == 'content' %} class="active"{% endif %}><a href="{{ url_for('content/index') }}">Protected Content</a></li>
+                        <li> <a href="{{ url_for('book') }}">List of Pages</a></li>
+                        <li> <a href="{{ url_for('book-index') }}">Book Index</a></li>
+                        {% if goolge_user -%}<li> <a href="{{ url_for('admin') }}">Admin</a></li>
+                        <li> <a href="{{goolge_logout_url}}">Google logout</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

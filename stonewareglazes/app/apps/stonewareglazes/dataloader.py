@@ -7,7 +7,10 @@ class UpdatePageHandler(RequestHandler):
     def get(self, **kwargs):
         pages = Page.all()
         for page in pages:
-            page.loginRequired = True
+            if (page.sequenceNumber >=29) and (page.sequenceNumber < 222):
+                page.loginRequired = True
+            else:
+                page.loginRequired=False
             page.put()
         response = redirect_to('admin')
         response.data = ''

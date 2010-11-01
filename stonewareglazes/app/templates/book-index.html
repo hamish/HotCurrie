@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<h1>Stoneware Glazes Index</h1>
+    {% for item in indexItems %}
+    {{item.label}} {% for num in item.pages %}<a href="{{ url_for('page_def', number=num) }}">{{num}}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+    <br />
+    {% endfor %}
+{% endblock %}

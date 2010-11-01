@@ -41,6 +41,7 @@ def get_rules(app):
 
             #Rule('/', endpoint='home', handler='MainHandler'),
             Rule('/book/', endpoint='book', handler='handlers.BookHandler'),
+            Rule('/book/index', endpoint='book-index', handler='handlers.IndexHandler'),
             Rule('/book/page/<number>', endpoint='page_def', handler='handlers.PageHandler'),
             Rule('/book/page/<number>/<size>', endpoint='page', handler='handlers.PageHandler'),
             #Rule('/admin/', endpoint='home', handler='AdminHandler'),

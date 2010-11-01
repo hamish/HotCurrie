@@ -126,11 +126,7 @@ class BookHandler(PageListHandler):
         processedPages = self.getPages()
         arguments={'pages': self.getPages()}            
         return self.render_response('Book.html', **arguments)
-    
-class AdminIndexHandler(BaseHandler):
-    @cached_property
-    def form(self):
-        return IndexForm(self.request)    
+class IndexListHandler(BaseHandler):
     def getIndexItems(self):
         items = IndexItem.gql('ORDER BY sequenceNumber')
         processedItems=[]
@@ -143,6 +139,19 @@ class AdminIndexHandler(BaseHandler):
                }
             processedItems.append(p)
         return processedItems
+class IndexHandler(IndexListHandler):
+    def get(self, **kwargs):
+        context = {
+            'indexItems': self.getIndexItems()
+        }
+        return self.render_response('book-index.html', **context)
+
+
+class AdminIndexHandler(IndexListHandler):
+    @cached_property
+    def form(self):
+        return IndexForm(self.request)    
+
     
     def get(self, **kwargs):
         Items = IndexItem.gql('ORDER BY label')
