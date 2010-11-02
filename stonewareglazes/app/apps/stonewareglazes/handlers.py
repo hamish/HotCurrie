@@ -318,7 +318,7 @@ class UploadHandler(BaseHandler, BlobstoreUploadMixin):
         return response
 class PageHandler(BaseHandler, BlobstoreDownloadMixin):
     #def get(self, **kwargs):
-    def get(self, number='1', size='21'):
+    def get(self, number='1', size='24'):
         pageLabel=number
         sizeIndex=int(size)
         #pageLabel = kwargs.get('number')
