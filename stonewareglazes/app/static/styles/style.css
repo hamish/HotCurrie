@@ -254,6 +254,18 @@ html>body td, th
     font-size: inherit;
 }
 
+table.image-buttons td.size
+{
+    text-align: center;
+}
+table.image-buttons td.prev, table.image-buttons td.next
+{
+    width: 100px;
+}
+table.image-buttons td.next
+{
+    text-align: right;
+}
 table.directors td
 {
     vertical-align: top;

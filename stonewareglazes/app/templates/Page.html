@@ -2,14 +2,14 @@
 
 {% block body %}
 
-<table>
+<table class="image-buttons">
   <tr>
-    <td>
+    <td class="prev">
       {% if hasPrevious %}
-      <a href="{{previousURL}}">previous</a>
+      <a href="{{previousURL}}">< previous</a>
       {% endif %}
     </td>
-    <td>
+    <td class="size">
       {% if hasBigger %}
       <a href="{{biggerURL}}">bigger</a>
       {% endif %}
@@ -17,9 +17,9 @@
       <a href="{{smallerURL}}">smaller<a/>
       {% endif %}
     </td>
-    <td>
+    <td class="next">
 	{% if hasNext %}
-	<a href="{{nextURL}}">next</a>
+	<a href="{{nextURL}}">next ></a>
 	{% endif %}
     </td>
   </tr>
