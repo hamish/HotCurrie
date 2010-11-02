@@ -1,0 +1,503 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	font-family: "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+	font-size: 76%;
+	background-color: #ca6;
+}
+
+/***** general links *****/
+
+a:link
+{
+	color: #c90;
+}
+
+a:visited
+{
+    color: #532;
+}
+
+a:hover
+{
+    color: #06c;
+}
+
+a:active
+{
+}
+
+.yui-d1
+{
+    margin: 0;
+    padding: 0;
+}
+
+/***** title *****/
+
+div.title
+{
+    width: 1000px;
+    height: 164px;
+    margin: 0 auto;
+    padding: 0;
+    color: #fff;
+    background: #532 url( ../images/header.jpg) top left no-repeat;
+}
+div.title p
+{
+    margin: 5px;
+    text-align: right;
+}
+div.title a
+{
+    color: #f4cbb4;
+}
+
+/***** navigation *****/
+
+div.topnav
+{
+    width: 1000px;
+    height: 37px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    background: #cc584a url(../images/topnav_bg.gif) top left repeat-x;
+}
+
+div.topnav ul
+{
+	margin: 0 auto;
+	padding: 0;
+	display: block;
+	list-style: none;
+    text-align: center;
+}
+
+div.topnav ul li
+{
+	margin: 0;
+  	padding: 0;
+	display: inline;
+    line-height: 28px;
+}
+div.topnav a,
+div.topnav a:link,
+div.topnav a:visited
+{
+    padding: 0 1em;
+    color: #fff;
+    font-size: 1.4em;
+    text-decoration: none;
+}
+div.topnav a:hover
+{
+    color: #f4cbb4;
+}
+div.topnav a#current
+{
+    color: #f4cbb4;
+    cursor: default;
+}
+
+/***** menu *****/
+div.menu {
+    width: 200px;
+    float: left;
+}
+/* search */
+div.menu form.search {
+    margin: 1em 0;
+}
+div.menu form.search fieldset {
+    padding: 0;
+    border: none;
+}
+div.menu form.search input {
+    vertical-align: middle;
+}
+div.menu form.search input#input1 {
+    width: 120px;
+}
+div.menu form.search input#input2 {
+    padding-left: 0;
+    padding-right: 0;
+}
+/* list */
+div.menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+div.menu ul li {
+    padding: 4px 0 3px 5px;
+    line-height: 1.1em;
+}
+div.menu ul ul li {
+    padding: 4px 0 3px 15px;
+}
+div.menu ul a {
+    color: #9c261d;
+    font-weight: bold;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+}
+div.menu ul a:hover,
+div.menu ul a.active {
+    color: #c97653;
+}
+
+/***** content *****/
+div.wrapper {
+    width: 980px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #fff;
+}
+
+div.content
+{
+    margin: 0 0 0 210px;
+    min-height: 300px;
+}
+
+div.section {
+    padding-bottom: 0.5em;
+    border-top: 1px solid #8cacbb;
+}
+
+h1
+{
+    margin: 0 0 0.5em 0;
+    padding: 0;
+    color: #9c261d;
+    font-size: 2em;
+}
+html>body h1
+{
+    margin-top: 8px;
+}
+
+h2
+{
+    margin: 1.25em 0 0 0;
+    font-size: 1.2em;
+}
+
+ol
+{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+li
+{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+p
+{
+    margin: 0.5em 0;
+}
+
+strong
+{
+    font-weight: bold;
+}
+
+p.abstract
+{
+    margin-bottom: 1em;
+    line-height: 1.4em;
+}
+
+.required
+{
+    color: #c00;
+}
+.error
+{
+    color: #900;
+}
+.error ul
+{
+    margin-top: 4px;
+}
+.error li
+{
+    padding: 2px 0;
+}
+
+table
+{
+    margin: 0.5em 0;
+}
+
+th
+{
+    text-align: right;
+}
+
+td, th
+{
+    padding: 0.2em 0.5em;
+    font-size: 1.0em;
+	/** ie5.5 font size hack **/
+	\font-size: 76%;
+	f\ont-size: inherit;
+}
+html>body td, th
+{
+    font-size: inherit;
+}
+
+table.directors td
+{
+    vertical-align: top;
+}
+
+.block
+{
+	float: none;
+	clear: both;
+	display: block;
+}
+
+img.photo
+{
+    margin: 0em 0px 0em 0.5em;
+    border: 1px solid #532;
+}
+.inline
+{	
+	float:right;
+	margin:0 5px 2px 5px;
+}
+div.inline p
+{
+	margin: 1em 0;
+	text-align:center;
+}
+div.inline img,
+img.inline
+{
+	width:250px;
+}
+
+.leftarea
+{
+    float: left;
+}
+
+.rightarea
+{
+        text-align: right;
+   float: right;
+}
+
+/***** quotebox *****/
+
+div.quotebox
+{
+    width: 160px;
+    margin: 5px 0 5px 10px;
+    padding: 5px 8px 18% 8px;
+    float: right;
+    font-size: 1.2em;
+    font-style: italic;
+    color: #069;
+    text-align: right;
+    line-height: 1.5em;
+    background: #def;
+}
+div.quotebox h2
+{
+    margin: 0;
+}
+
+/***** spreadsheet *****/
+table.spreadsheet
+{
+    width: 100%;
+    border: 1px solid #069;
+}
+table.spreadsheet th,
+table.spreadsheet td
+{
+    color: #036;
+    background: #def;
+    border-right: 1px solid #fff;
+}
+table.spreadsheet th
+{
+    text-align: left;
+}
+table.spreadsheet td.number,
+table.spreadsheet td.sub
+{
+    text-align: right;
+}
+table.spreadsheet td.sub
+{
+    border: none;
+}
+table.spreadsheet thead th
+{
+    padding: 10px 2px;
+    font-size: 1.2em;
+    text-align: center;
+    color: #fff;
+    background: #069;
+    border: none;
+}
+table.spreadsheet tbody th
+{
+    background: #cde;
+}
+table.spreadsheet tbody tr.odd td
+{
+    background: #ecf4ff;
+}
+table.spreadsheet tbody tr.even td
+{
+    background: #f2f9ff;
+}
+table.spreadsheet tfoot td,
+table.spreadsheet tfoot th
+{
+    font-weight: bold;
+    background: #cde;
+}
+
+/*** form ***/
+form
+{
+    margin: 0;
+}
+input.name,
+input.phone
+{
+    width: 7em;
+}
+input.email
+{
+    width: 15.4em;
+}
+input.amount
+{
+    width: 6em;
+}
+input.disabled
+{
+    color: #036;
+    font-weight: bold;
+    background: transparent;
+    border: none;
+}
+input.date,
+input.text
+{
+    width: 10em;
+}
+input.initial
+{
+    width: 3em;
+}
+textarea.address
+{
+    width: 20em;
+    height: 3.6em;
+}
+textarea.comments
+{
+    width: 20em;
+    height: 7.2em;
+}
+
+/*** application form ***/
+form.application table
+{
+}
+form.application table th,
+form.application table td
+{
+    padding: 0.3em 0.6em 0.5em 0.6em;
+    border-bottom: 1px solid #fff;
+}
+form.application table tr th
+{
+    color: #fff;
+    font-weight: bold;
+    white-space: nowrap;
+    background-color: #069;
+    vertical-align: top;
+}
+form.application table tr th span.required
+{
+    color: #f66;
+}
+form.application table tr td
+{
+    color: #369;
+    background-color: #d8e8f8;
+}
+form.application table tr.alt td
+{
+    background-color: #cde;
+}
+form.application table tr.submit td
+{
+    padding-right: 0;
+    text-align: right;
+    background-color: #fff;
+}
+form.application table tr.submit td input
+{
+    padding: 0.1em 0.5em;
+    color: #fff;
+    font-weight: bold;
+    background-color: #069;
+    border: 1px solid #036;
+    border-top: 1px solid #cde;
+    border-left: 1px solid #cde;
+}
+form.application table tr td.error
+{
+    color: #900;
+    vertical-align: top;
+    background-color: #fff;
+}
+form.application table tr.required td
+{
+    padding: 0;
+    color: #864;
+    text-align: right;
+    font-size: 0.9em;
+    background-color: #fff;
+}
+
+/***** footer *****/
+
+div.footer
+{
+    padding: 2px;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.9em;
+    text-align: right;
+}
+
+div.footer a
+{
+    color: #532;
+    text-decoration: none;
+}
+div.footer a:hover
+{
+    color: #532;
+    text-decoration: underline;
+}

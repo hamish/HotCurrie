@@ -2,12 +2,11 @@
 <html>
     <head>
         <title>Stoneware Glazes</title>
-        <link rel="stylesheet" type="text/css" href="/static/styles/screen.css">
+        <link rel="stylesheet" type="text/css" href="/static/styles/style.css">
     </head>
     <body>
         <div class="yui-d1">
-            <div class="top">
-                <h1>Stoneware Glazes</h1>
+            <div class="title">
                 <div class="user-status">
                     <p>{% if current_user or auth_session -%}
                         {% if current_user -%}
@@ -16,28 +15,22 @@
                     {% else %}
                         Hi, there. <a href="{{ login_url }}">Sign in</a>
                     {% endif %}
-                    
                     </p>
-                    
                 </div>
             </div>
         </div>
-        <div class="yui-d1">
-            <div class="yui-t2">
-                <div class="yui-main">
-                    <div class="yui-b">
-                        <div class="content">
-                        {% block body %}
-                        {% endblock %}
-                        </div>
-
-                        <div class="footer">
-                            <p>Powered by <a href="http://www.tipfy.org/">tipfy</a>.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="yui-b">
-                    <ul class="menu">
+        
+	<div class="wrapper">
+            <div class="menu">
+                <form class="search" action="http://www.google.com/cse" id="cse-search-box">
+                    <input name="cx" value="004341289447964662100:3mkr1gaa0o8" type="hidden">
+                    <input name="ie" value="UTF-8" type="hidden">
+                    <fieldset>
+                        <input id="input1" onclick="this.style.backgroundPosition='100px 1000px';" onblur="if (this.value == '') { this.style.backgroundPosition='left center'; }" style="background: rgb(255, 255, 255) url(http://www.google.com/coop/intl/en/images/google_custom_search_watermark.gif) no-repeat scroll left center; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;" name="q" size="28" type="text">
+                        <input id="input2" name="sa" value="Search" type="submit">
+                    </fieldset>
+                </form>
+                    <ul>
                         <li{% if section == 'home' %} class="active"{% endif %}><a href="{{ url_for('home') }}">Home</a></li>
                         <li> <a href="{{ url_for('book') }}">List of Pages</a></li>
                         <li> <a href="{{ url_for('book-index') }}">Book Index</a></li>
@@ -45,8 +38,16 @@
                         <li> <a href="{{goolge_logout_url}}">Google logout</a></li>
                         {% endif %}
                     </ul>
-                </div>
             </div>
+
+            <div class="content">
+		{% block body %}
+		{% endblock %}
+            </div>
+        </div>
+        
+        <div class="footer">
+    	    <p>Powered by <a href="http://www.tipfy.org/">tipfy</a>.</p>
         </div>
 
         {%- block body_extra %}
