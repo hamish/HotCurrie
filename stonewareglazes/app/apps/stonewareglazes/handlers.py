@@ -13,7 +13,7 @@ from tipfy.ext.jinja2 import Jinja2Mixin
 from tipfy.ext.session import AllSessionMixins, SessionMiddleware
 from tipfy.ext.wtforms import Form, fields, validators
 
-from apps.stonewareglazes.Model import Page, IndexItem
+from apps.stonewareglazes.Model import Page, IndexItem, TocItem
 from apps.stonewareglazes.roman import toRoman, fromRoman
 
 from google.appengine.api import users
@@ -24,6 +24,7 @@ import random
 import string
 import csv
 import logging
+import urllib
 
 REQUIRED = validators.required()
 EMAIL = validators.email()
@@ -146,6 +147,12 @@ class IndexHandler(IndexListHandler):
         }
         return self.render_response('book-index.html', **context)
 
+class TocHandler(BaseHandler):
+    def get(self):
+        context={
+            'tocItems': TocItem.gql('ORDER BY sequenceNumber'),
+                 }
+        return self.render_response('toc.html', **context)
 
 class AdminIndexHandler(IndexListHandler):
     @cached_property
@@ -178,7 +185,33 @@ class AdminIndexHandler(IndexListHandler):
             life=None)
         return self.get(**kwargs)
     
-            
+PAYPAL_ID = "ian-paypal@currie.to"
+ITEM_NAME = "Account for online access to Stoneware Glazes"
+class PaymentHandler(BaseHandler):
+    def get(self, **kwargs):
+        #return Response('Hello, World!')
+        domain='htp://localhost:8080/'
+        priceInDollars=5
+        parameters = {
+            "business": "%s" % PAYPAL_ID,
+            "cmd": "_xclick",
+            "item_name": "%s" % ITEM_NAME,
+            "custom": "%s" % "AccountSignup",
+            "amount": "%s" % priceInDollars,
+            "currency_code": "AUD",
+            "no_shipping": "1",
+            "rm": "1",
+            "return": "%s%s" % (domain, '/thanks/'),
+            "cancel_return": "%s%s" % (domain, url_for('auth/login')),
+            "bn": "StonewareGlazes_Online",
+            "notify_url": "%s%s" % (domain, "/purchase/ipn/")
+        }
+        parameters_encoded = urllib.urlencode(parameters)
+        paypal_url = "https://www.paypal.com/cgi-bin/webscr?"
+        payment_link = paypal_url + parameters_encoded
+        logging.info("redirect to:" + payment_link)
+        return redirect(payment_link)
+
 class LoginHandler(BaseHandler):
     def get(self, **kwargs):
         redirect_url = self.redirect_path()

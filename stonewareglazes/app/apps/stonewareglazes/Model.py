@@ -34,4 +34,14 @@ class IndexItem(db.Model):
     pageNumbers = db.StringProperty()
     sequenceNumber = db.IntegerProperty()
 
+class TocItem(db.Model):
+    #: Creation date.
+    created = db.DateTimeProperty(auto_now_add=True)
+    #: Modification date.
+    updated = db.DateTimeProperty(auto_now=True)
+    label = db.StringProperty()
+    pageNumber = db.StringProperty()
+    styleNumber = db.IntegerProperty()
+    blockHeading = db.StringProperty()
+    sequenceNumber = db.IntegerProperty()
     

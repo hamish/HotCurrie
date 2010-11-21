@@ -15,8 +15,51 @@
         </fieldset>
     </form>
 
-    <p>Don't have an account? <a href="{{ url_for('auth/register') }}">Create a new one</a>.</p>
+    <p>Don't have an account? Create an account now.
 
+            <form class="application" name="PayPalForm" method="get" onsubmit="return validate()" action="{{ url_for('auth/pay') }}">
+
+                <div class="error" id="validationErrors"></div>
+
+                <select name="donation_type" id="donation_type" onchange="updateAmount()" tabindex="1">
+                            <option value="5">$5</option>
+                            <option value="10">$10</option>
+                            <option value="20">$20</option>
+                            <option value="50">$50</option>
+                            <option value="other">Other amount</option>
+
+                        </select>
+                        <label for="amount">Donation amount:</label><span class="required">*</span></th>
+                        <td colspan="2">AUD <input type="text" name="amount" id="amount" class="disabled" tabindex="2"/>
+                        <span class="error" id="amount_error"></span>
+                        
+                        <input type="submit" class="button" value="Pay Now" title="Make your donation via PayPal" tabindex="6" />
+            </form>
+
+
+    
+    </p>
+
+        <script language="javascript" type="text/javascript">
+            function updateAmount()
+            {
+                var donationType = document.PayPalForm.donation_type;
+                var donationAmount = document.PayPalForm.amount;
+                if (donationType.value == 'other')
+                {
+                    donationAmount.readonly = false;
+                    donationAmount.className = 'amount';
+                    donationAmount.value = '';
+                    donationAmount.focus();
+                }
+                else
+                {
+                    donationAmount.value = donationType.value;
+                    donationAmount.className = 'disabled';
+                    donationAmount.readonly = true;
+                }
+            }
+        </script>
 
 {% endblock %}
 

@@ -27,6 +27,7 @@ def get_rules(app):
             Rule('/auth/logout', endpoint='auth/logout', handler='handlers.LogoutHandler'),
             Rule('/auth/signup', endpoint='auth/signup', handler='handlers.SignupHandler'),
             Rule('/auth/register', endpoint='auth/register', handler='handlers.RegisterHandler'),
+            Rule('/auth/pay', endpoint='auth/pay', handler='handlers.PaymentHandler'),
 
 
             Rule('/content', endpoint='content/index', handler='handlers.ContentHandler'),
@@ -34,6 +35,7 @@ def get_rules(app):
             Rule('/admin/user', endpoint='admin-user', handler='handlers.AdminUserHandler'),
             Rule('/admin/index', endpoint='admin-index', handler='handlers.AdminIndexHandler'),
             Rule('/admin/load/index', endpoint='admin-load-index', handler='dataloader.LoadIndexHandler'),
+            Rule('/admin/load/toc', endpoint='admin-load-toc', handler='dataloader.LoadTocHandler'),
             #Rule('/admin/load/index', endoint='admin-load-index', handler='handlers.LoadIndexHandler'),
             Rule('/admin/page/upgrade', endpoint='admin-page-upgrade', handler='dataloader.UpdatePageHandler'),
             
@@ -42,6 +44,7 @@ def get_rules(app):
             #Rule('/', endpoint='home', handler='MainHandler'),
             Rule('/book/', endpoint='book', handler='handlers.BookHandler'),
             Rule('/book/index', endpoint='book-index', handler='handlers.IndexHandler'),
+            Rule('/book/toc', endpoint='book-toc', handler='handlers.TocHandler'),
             Rule('/book/page/<number>', endpoint='page_def', handler='handlers.PageHandler'),
             Rule('/book/page/<number>/<size>', endpoint='page', handler='handlers.PageHandler'),
             #Rule('/admin/', endpoint='home', handler='AdminHandler'),

@@ -1,13 +1,13 @@
 #import logging
 from tipfy import (RequestHandler, RequestRedirect, Response, abort,
     cached_property, redirect, redirect_to, url_for)
-from apps.stonewareglazes.Model import IndexItem, Page
+from apps.stonewareglazes.Model import IndexItem, Page, TocItem
 
 class UpdatePageHandler(RequestHandler):
     def get(self, **kwargs):
         pages = Page.all()
         for page in pages:
-            if (page.sequenceNumber >=29) and (page.sequenceNumber < 222):
+            if (page.sequenceNumber >=36) and (page.sequenceNumber < 222):
                 page.loginRequired = True
             else:
                 page.loginRequired=False
@@ -15,6 +15,53 @@ class UpdatePageHandler(RequestHandler):
         response = redirect_to('admin')
         response.data = ''
         return response
+    
+class LoadTocHandler(RequestHandler):
+    def get(self, **kwargs):
+        items=[
+               [1,"", "CONTENTS",""],
+               [3,"", "FOREWORD",""],
+               [3,"", "EXPLANATORY OUTLINE",""],
+               [5,"", "Practical Guide.",""],
+               [5,"", "Base glazes - a key to understanding glaze principles.",""],
+               [5,"", "Limits. ",""],
+               [5,"", "Methodology.",""],
+               
+               [2,"", "PART I BASE GLAZES",""],
+               [3,"1", "PREPARATIONS","2"],
+
+               [5,"", "Introduction. ",""],
+               [5,"", "Group study. ",""],
+               [5,"", "Reference books. ",""],
+               [5,"", "Base glaze theory and practice. ",""],
+               [5,"", "Raw materials. ",""],
+               [5,"", "Guidelines for selection of materials.",""],
+ 
+               [3,"2", "BASIC CHEMISTRY","10"],
+
+               [5,"", "Atoms. ",""],
+               [5,"", "Molecules. ",""],
+               [5,"", "Oxides. ",""],
+               [5,"", "Glaze -  a glassy mix of oxides. ",""],
+               [5,"", "The relationship between recipe, oxide weight % and Seger formula. ",""],
+               [5,"", "Converting a Seger formula to oxide weight %. ",""],
+               [5,"", "Converting a Seger formula to a recipe. ",""],
+               ]
+        seq=0
+        for i in items:
+            seq=seq+10
+            #logging.debug("attempting: " + i[0])
+            item= TocItem()
+            item.styleNumber=i[0]
+            item.blockHeading=i[1]
+            item.label=i[2]
+            item.pageNumber=i[3].upper()
+            item.sequenceNumber=seq
+            item.put()
+        response = redirect_to('admin-index')
+        response.data = ''
+        return response
+
 class LoadIndexHandler(RequestHandler):
     def get(self, **kwargs):
         items = [

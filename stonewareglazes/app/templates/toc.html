@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    {% for item in tocItems %}
+
+    {% if item.styleNumber == 1  %}
+    <h1>
+    {% elif item.styleNumber == 2 %}
+    <h2>
+    {% elif item.styleNumber == 3 %}
+    <h3>
+    {% elif item.styleNumber == 5 %}
+    {% endif %}
+    
+    {% if item.pageNumber %}<a href="{{ url_for('page_def', number=item.pageNumber) }}">{% endif %}
+    {{ item.label }} 
+    {% if item.pageNumber %} </a>{% endif %}
+    
+    {% if item.styleNumber == 1  %}
+    </h1>
+    {% elif item.styleNumber == 2 %}
+    </h2>
+    {% elif item.styleNumber == 3 %}
+    </h3>
+    {% elif item.styleNumber == 5 %}
+    {% endif %}
+    {% endfor %}
+{% endblock %}
