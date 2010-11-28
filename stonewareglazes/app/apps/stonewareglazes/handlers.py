@@ -20,6 +20,8 @@ from google.appengine.api import users
 from google.appengine.api import mail
 from google.appengine.ext import blobstore
 from google.appengine.api import images 
+from google.appengine.api import urlfetch
+
 import random
 import string
 import csv
@@ -104,7 +106,11 @@ class BaseHandler(RequestHandler, MultiAuthMixin, Jinja2Mixin,
 class HomeHandler(BaseHandler):
     def get(self, **kwargs):
         return self.render_response('home.html', section='home')
-
+        
+class PaymentCompleteHandler(BaseHandler):
+    def get(self, **kwargs):
+        return self.render_response('thanks.html')
+        
 class ContentHandler(BaseHandler):
     @user_required
     def get(self, **kwargs):
@@ -189,9 +195,8 @@ PAYPAL_ID = "ian-paypal@currie.to"
 ITEM_NAME = "Account for online access to Stoneware Glazes"
 class PaymentHandler(BaseHandler):
     def get(self, **kwargs):
-        #return Response('Hello, World!')
         domain='htp://localhost:8080/'
-        priceInDollars=5
+        priceInDollars=self.request.args.get('amount', 5, type=int)
         parameters = {
             "business": "%s" % PAYPAL_ID,
             "cmd": "_xclick",
@@ -393,14 +398,92 @@ class PageHandler(BaseHandler, BlobstoreDownloadMixin):
             arguments['biggerURL']=url_for('page', number=number, size=sizeStr)
         
         return self.render_response('Page.html', **arguments)
-        
-class PaypalHandler(AdminHandler):
-    def post(self, **kwargs):
-        username=self.request.get('payer_email')
-        message="Thanks for your payment"
-        
-        
-        ### TODO DO Verification checks
-        user = self.createUser(username, message)
 
+class PaypalIPNHandler(AdminUserHandler):
+    live_url = "https://www.paypal.com/cgi-bin/webscr"
+    test_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr'
+
+    def post(self):
+        self.get()
+    def get(self):
+        self.process_ipn(1)
+        return Response('ipn processing complete')
+
+    def process_ipn(self, do_paypal_verification):
+        logging.info("process_IPN")
+
+        data = {}
+        for i in self.request.args.keys():
+            data[i] = self.request.args.get(i)
+            logging.info("IPN GET data: %s: %s" %(i, data[i]))
+        for i in self.request.form.keys():
+            data[i] = self.request.form.get(i)
+            logging.info("IPN POST data: %s: %s" %(i, data[i]))
+         
+
+        ipn_verified = True
+        if do_paypal_verification:
+            ipn_verified = self.is_ipn_valid(data)
+        else:
+            ipn_verified = (self.request.args.get('paypal_verification') == 'Success')
+            
+        verified = ipn_verified
+        message="Thank you for opening an account with Stoneware Glazes online. "
+            
+        if verified:
+            # create user account
+            user = self.createUser(data['payer_email'], message)
+            mail.send_mail(to='hcurrie@gmail.com', 
+            	    sender='hcurrie@gmail.com', 
+            	    subject='Stoneware glazes online payment', 
+            	    body="There was a payment.\n\nData:\n%s\n" % dict_to_string(data))
+            
+        else:
+            # what to do? email admin?
+            mail.send_mail(to='hcurrie@gmail.com', 
+            	    sender='hcurrie@gmail.com', 
+            	    subject='Stoneware glazes online payment verification failure', 
+            	    body="There was an attempted payment verification which was denied by paypal.\n\nData:\n%s\n" % dict_to_string(data))
+
+    def get_verification_url(self, data):
+        verification_url = self.live_url
+        if (self.request.args.get('test_ipn', '0') == '1'):
+            verification_url = self.test_url
+        data['verification+url'] = verification_url
+        return verification_url
+        
+    def is_ipn_valid(self, data):
+        data['cmd'] = '_notify-validate'
+            
+        verification_url = self.get_verification_url(data)
+        result = self.do_post(verification_url, data)
+        data['ipn+post+result'] = result
+        ipn_verified = (result == 'VERIFIED')
+        return ipn_verified
+    
+
+    def do_post(self, url, args):
+        return urlfetch.fetch(
+            url = url,
+            method = urlfetch.POST,
+            payload = urllib.urlencode(args)
+        ).content
+
+    def verify(self, data):
+        verify_url = self.live_url
+        if (data.get('test_ipn', '0')=='1'):
+            verify_url = self.test_url
+        args = {
+            'cmd': '_notify-validate',
+        }
+        args.update(data)
+        result = self.do_post(verify_url, args)
+        r = {'post_result': result }
+        r.update(data)
+        return result == 'VERIFIED'
+def dict_to_string(dict):
+    s=""
+    for key in dict.keys():
+        s="%s %s : %s \n" %(s,key,dict[key])
+    return s
 

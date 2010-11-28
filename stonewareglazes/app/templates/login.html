@@ -4,62 +4,36 @@
 
 {% block body %}
     <h1>Sign in</h1>
-    <form method="post" action="{{ current_url }}" enctype="multipart/form-data" class="tipfy-form">
-        <ol>
-            <li>{{ form_field(form.username, class='medium') }}</li>
-            <li>{{ form_field(form.password, class='medium') }}</li>
+    <form method="post" action="{{ current_url }}" enctype="multipart/form-data" class="tipfy-form signin">
+        <ul>
+            <li class="input">{{ form_field(form.username, class='medium') }}</li>
+            <li class="input">{{ form_field(form.password, class='medium') }}</li>
             <li>{{ form_field(form.remember) }}</li>
-        </ol>
-        <fieldset class="submit">
-            <input type="submit" name="submit" value="{{ _('Sign in') }}">
-        </fieldset>
+            <li class="submit"><input type="submit" name="submit" value="{{ _('Sign in') }}"></li>
+        </ul>
     </form>
 
-    <p>Don't have an account? Create an account now.
+    <div class="signup">
+    	<h2>Don't have an account? Account signup coming soon.</h2>
+    	{#
+    	<h2>Don't have an account? Create one now.</h2>
+    	<p class="intro">To start creating your account simply make a one-off donation. 
+    	   You'll receive unlimited access to the online version of Ian Currie's
+    	   <span class="title">Stoneware Glazes - A Systematic Approach</span>.</p>
+    	<p class="intro">You decide how
+    	   much to donate - give what you think it's worth.</p>
 
             <form class="application" name="PayPalForm" method="get" onsubmit="return validate()" action="{{ url_for('auth/pay') }}">
 
                 <div class="error" id="validationErrors"></div>
-
-                <select name="donation_type" id="donation_type" onchange="updateAmount()" tabindex="1">
-                            <option value="5">$5</option>
-                            <option value="10">$10</option>
-                            <option value="20">$20</option>
-                            <option value="50">$50</option>
-                            <option value="other">Other amount</option>
-
-                        </select>
-                        <label for="amount">Donation amount:</label><span class="required">*</span></th>
-                        <td colspan="2">AUD <input type="text" name="amount" id="amount" class="disabled" tabindex="2"/>
+                        
+		<p><label for="amount">Donation amount:</label></th>
+                        AUD <input type="text" name="amount" id="amount" value="15" class="amount"/>
                         <span class="error" id="amount_error"></span>
                         
-                        <input type="submit" class="button" value="Pay Now" title="Make your donation via PayPal" tabindex="6" />
+                        <input type="submit" class="button" value="Pay Now" title="Make your donation via PayPal" /></p>
             </form>
-
-
-    
-    </p>
-
-        <script language="javascript" type="text/javascript">
-            function updateAmount()
-            {
-                var donationType = document.PayPalForm.donation_type;
-                var donationAmount = document.PayPalForm.amount;
-                if (donationType.value == 'other')
-                {
-                    donationAmount.readonly = false;
-                    donationAmount.className = 'amount';
-                    donationAmount.value = '';
-                    donationAmount.focus();
-                }
-                else
-                {
-                    donationAmount.value = donationType.value;
-                    donationAmount.className = 'disabled';
-                    donationAmount.readonly = true;
-                }
-            }
-        </script>
-
+#}
+    </div>
 {% endblock %}
 

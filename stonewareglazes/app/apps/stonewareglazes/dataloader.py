@@ -28,25 +28,215 @@ class LoadTocHandler(RequestHandler):
                [5,"", "Methodology.",""],
                
                [2,"", "PART I BASE GLAZES",""],
+              
                [3,"1", "PREPARATIONS","2"],
-
                [5,"", "Introduction. ",""],
                [5,"", "Group study. ",""],
                [5,"", "Reference books. ",""],
                [5,"", "Base glaze theory and practice. ",""],
                [5,"", "Raw materials. ",""],
                [5,"", "Guidelines for selection of materials.",""],
- 
+               
                [3,"2", "BASIC CHEMISTRY","10"],
 
                [5,"", "Atoms. ",""],
                [5,"", "Molecules. ",""],
                [5,"", "Oxides. ",""],
-               [5,"", "Glaze -  a glassy mix of oxides. ",""],
+               [5,"", "Glaze - a glassy mix of oxides. ",""],
                [5,"", "The relationship between recipe, oxide weight % and Seger formula. ",""],
                [5,"", "Converting a Seger formula to oxide weight %. ",""],
                [5,"", "Converting a Seger formula to a recipe. ",""],
-               ]
+
+               [3,"3","GETTING STARTED -- MATERIAL REQUIREMENTS","16"],
+               [5,"", "Glaze materials. ",""],
+               [5,"", "Clay materials.  ",""],
+               [5,"", "Equipment and books.",""],
+
+               [3,"4", "LINE BLENDS - ASH, CLAY AND ROCK GLAZES ","20"],
+               [5,"", "Wood ash.  ",""],
+               [5,"", "Clay.  ",""],
+               [5,"", "Rock dust.  ",""],
+               [5,"", "Ball Mills.  ",""],
+               [5,"", "Volumetric blending - a lot of glazes with a little work.  ",""],
+               [5,"", "References. ",""], 
+
+               [3,"5", "BASELINE GRIDS AND BIAXlAL BLENDS","25"],
+               [5,"","Baseline grids. ",""],
+               [5,"","Biaxial blends.",""],
+               
+               [3,"6","EXPERIMENTAL PROCEDURE FOR BIAXIAL BLENDS","28"],
+               [5,"", "Making the glazes. Applying the glazes and oxides and firing.",""],
+               [5,"", "Assessment tiles and individual tiles.",""],
+               [5,"", "Putting the results in order.",""],
+               [5,"", "Assessment of results.",""],
+
+               [3,"7", "ALUMINA AND SILICA IN STONEWARE GLAZES","36"],
+               [5,"", "Effects of varying alumina and silica.",""],
+               [5,"", "Sources of alumina in glazes.",""],
+               [5,"", "Sources of silica in glazes.",""],
+               [5,"", "The alumina/silica ratio.",""],
+
+               [3,"8", "LIME ALKALI GLAZES","43"],
+               [5,"", "The use of calcium in stoneware glazes.",""],
+               [5,"", "Sources of calcium.",""],
+               [5,"", "The use of alkali fluxes in stoneware glazes.",""],
+               [5,"", "Sources of alkalis.",""],
+               [5,"", "Preliminary comments on experiments.",""],
+               [5,"", "The 0.9 Limestone Set.",""],
+               [5,"", "The 0.8 Limestone Set. ",""],
+               [5,"", "The 0.7 Limestone Set. ",""],
+               [5,"", "The 0.6 Limestone Set. ",""],
+               [5,"", "The 0.6 Feldspar Set.",""],
+
+               [3,"9", "MAGNESIUM GLAZES","62"],
+               [5,"", "Sources of magnesia. ",""],
+               [5,"", "The Magnesium Set. ",""],
+               [5,"", "Alternative recipes for the Magnesium Set. ",""],
+               [5,"", "Intermediate sets.",""],
+
+               [3,"10", "ZINC GLAZES","68"],
+               [5,"", "Sources of zinc. ",""],
+               [5,"", "The Zinc Set. ",""],
+               [5,"", "Intermediate sets.",""],
+
+               [3,"11","BARIUM GLAZES","74"],
+               [5,"", "Sources of barium. ",""],
+               [5,"", "Barium carbonate is poisonous. ",""],
+               [5,"", "Intermediate sets. ",""],
+               [5,"", "The Barium Set. ",""],
+               [5,"", "The Barium Alkaline Set.",""],
+               
+               [3,"12", "DESIGNING AN EXPERIMENT","82"],
+               [5,"", "Design your own base glaze experiment.",""],
+
+               [3,"13", "PHASE EQUILIBRIA DIAGRAMS AND EUTECTICS","84"],
+               [5,"", "Simple phase equilibria diagrams. ",""],
+               [5,"", "More complicated P.E. diagrams. ",""],
+               [5,"", "Triaxial diagrams. ",""],
+               [5,"", "The effect of increasing the number of ingredients.",""],
+               [5,"", "Reading triaxial phase diagrams.",""],
+               [5,"", "Summary. ",""],
+               [5,"", "References.",""],
+               
+               [3,"14", "CALCULATIONS","92"],
+               [5,"", "Converting formula to recipe. ",""],
+               [5,"", "The Four Question technique. ",""],
+               [5,"", "Percentage calculation. ",""],
+               [5,"", "Formula to recipe - model conversion. ",""],
+               [5,"", "Exercises. ",""],
+               [5,"", "List of raw materials. ",""],
+               [5,"", "Conversion of a glaze recipe to a Seger formula. ",""],
+               [5,"", "Conversion of analysis data (%) to Seger formula and molecular weight. ",""],
+               [5,"", "Formula to recipe - a more difficult example. ",""],
+               [5,"", "Simultaneous Equations. ",""],
+               [5,"", "The percentage method of glaze calculation. ",""],
+               [5,"", "More formula to recipe. ",""],
+               [5,"", "Calcining calculations. ",""],
+               [5,"", "Parts chart calculations. ",""],
+               [5,"", "Partial blends and intermediate blends. ",""],
+               [5,"", "Calculating blended glaze recipes.",""],
+               
+               [2,"", "PART II	SPECIFIC GLAZES",""],
+
+               [3,"15", "METHODOLOGY","120"],
+               [5,"", "Outline. ",""],
+               [5,"", "A reference framework for molecular formulae. ",""],
+               [5,"", "Test firings. ",""],
+               [5,"", "Draw trials. ",""],
+               [5,"", "Oxidation - neutral - reduction atmospheres. ",""],
+               [5,"", "Mortar and pestle line blending technique.",""],
+               
+               [3,"16", "CRYSTALLINE GLAZES","124"],
+               [5,"", "Devitrification - glass giving rise to crystals. ",""],
+               [5,"", "The process of crystallisation. ",""],
+               [5,"", "Important factors in crystal growth. ",""],
+               [5,"", "Different types of crystalline glazes. ",""],
+               [5,"", "Exercises. ",""],
+               [5,"", "References.",""],
+
+               [3,"17", "MATT GLAZES","134"],
+               [5,"", "Introduction. ",""],
+               [5,"", "The clay-glaze interface. ",""],
+               [5,"", "Exercises: Flux Matts. Alumina matts. Silica matts. ",""],
+               [5,"", "References.",""],
+
+               [3,"18", "OPAQUE GLAZES. CHUN-BLUE GLAZES","141"],
+               [5,"", "Introduction. ",""],
+               [5,"", "Opaque glazes. ",""],
+               [5,"", "Chun-blue glazes. ",""],
+               [5,"", "The chun-blue effect. ",""],
+               [5,"", "Factors affecting the development of chun-blue. ",""],
+               [5,"", "Chun-type glaze recipes. References. ",""],
+               
+               [3,"19", "DECORATED WHITEWARE. GLAZE FIT","150"],
+               [5,"", "Introduction. ",""],
+               [5,"", "Whiteness - how will you get it? ",""],
+               [5,"", "Body.",""],
+               [5,"", "White slip. ",""],
+               [5,"", "Colours. ",""],
+               [5,"", "Glazes. ",""],
+               [5,"", "Glaze fit. ",""],
+               [5,"", "References.",""],
+               
+               [3,"20", "HIGH IRON GLAZES","158"],
+               [5,"", "Introduction. ",""],
+               [5,"", "Forms of iron oxide in glazes. ",""],
+               [5,"", "Unity formula convention for iron glazes. ",""],
+               [5,"", "Experiments. ",""],
+               [5,"", "Discussion of results including iron solubility, rust break, chun-blue occurrence and teadust crystals. ",""],
+               [5,"", "Specific iron glazes, including honey, tenmoku, kaki, oilspot tenmoku, teadust, tomato red and tessha glazes, and iron glazes using natural materials. ",""],
+               [5,"", "References. ",""],
+               [5,"", "High iron Stoneware Glazes' by R. R. Hughan.",""],
+               
+               [3,"21", "CELADON","173"],
+               [5,"", "Introduction. ",""],
+               [5,"", "The base glaze - its role in celadon glazes. ",""],
+               [5,"", "Lung Chuan celadon. ",""],
+               [5,"", "Blue celadon. ",""],
+               [5,"", "Bubbles in celadon. ",""],
+               [5,"", "References.",""],
+               
+               [3,"22", "KUAN GLAZES","179"],
+               [5,"", "Description and the problems involved. ",""],
+               [5,"", "Suggested research program. ",""],
+               [5,"", "References.",""],
+
+               [3,"23", "SHINO GLAZES","183"],
+               [5,"", "Traditional Japanese Shino. ",""],
+               [5,"", "Nepheline syenite Shino.",""],
+               [5,"", "'Fire colour' in Shino. ",""],
+               [5,"", "Technical notes. ",""],
+               [5,"", "References.",""],
+
+               [3,"24", "COPPER GLAZES","188"],
+               [5,"", "Copper as a colourant. ",""],
+               [5,"", "Oxidised copper glazes. ",""],
+               [5,"", "Reduced copper glazes - copper reds. ",""],
+               [5,"", "References.",""],
+
+               [3,"25", "NATURAL GLAZES FROM WOODFIRING","194"],
+               [5,"", "Introduction. ",""],
+               [5,"", "Typical Shigaraki climbing kiln. ",""],
+               [5,"", "Using a smaller kiln. ",""],
+               [5,"", "A Bizen Kiln. ",""],
+               [5,"", "A few hints. ",""],
+               [5,"", "Extended firings - glazed and unglazed pots. ",""],
+               [5,"", "Ash types and clay types. ",""],
+               [5,"", "References.",""],
+
+               [3,"26", "ROCK GLAZES","200"],
+               [5,"", "Igneous rocks. ",""],
+               [5,"", "Identifying rocks and minerals. ",""],
+               [5,"", "Crushing and grinding the rock. ",""],
+               [5,"", "Ivan Englund on rock glazes. ",""],
+               [5,"", "Some simple testing procedures. ",""],
+               [5,"", "References. ",""],
+               [5,"", "Extract: 'Borax Bead Test'.",""],
+
+               [3,"", "INDEX","209"],
+	       ]
+
+               
         seq=0
         for i in items:
             seq=seq+10
@@ -58,7 +248,7 @@ class LoadTocHandler(RequestHandler):
             item.pageNumber=i[3].upper()
             item.sequenceNumber=seq
             item.put()
-        response = redirect_to('admin-index')
+        response = redirect_to('admin')
         response.data = ''
         return response
 

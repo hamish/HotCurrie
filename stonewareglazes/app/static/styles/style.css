@@ -168,6 +168,25 @@ div.section {
     border-top: 1px solid #8cacbb;
 }
 
+div.toc {
+	margin-right: 200px;
+}
+a.chaptername {
+	display: block;
+}
+div.toc table {
+	margin: 0;
+}
+div.toc th {
+	padding: 0 3px;
+	vertical-align: top;
+	color: #654;
+	font-size: 3em;
+	font-weight: normal;
+}
+div.toc td {
+	padding-top: 7px;
+}
 h1
 {
     margin: 0 0 0.5em 0;
@@ -179,8 +198,13 @@ html>body h1
 {
     margin-top: 8px;
 }
-
 h2
+{
+	margin: 1.25em 0 0 0;
+	font-size: 1.5em;
+	font-weight: normal;
+}
+h3
 {
     margin: 1.25em 0 0 0;
     font-size: 1.2em;
@@ -309,6 +333,13 @@ img.inline
         text-align: right;
    float: right;
 }
+p.intro {
+	color: #654;
+}
+span.title {
+	font-style: italic;
+	font-weight: bold;
+}
 
 /***** quotebox *****/
 
@@ -383,11 +414,39 @@ table.spreadsheet tfoot th
     font-weight: bold;
     background: #cde;
 }
+div.signup {
+	width: 400px;
+}
 
 /*** form ***/
 form
 {
     margin: 0;
+}
+form.signin {
+	width: 260px;
+	margin: 0;
+	padding: 10px;
+	background: #c6704f;
+	border: 1px solid #753310;
+}
+form.signin ul {
+	margin: 0;
+	padding: 0;
+    list-style: none;
+}
+form.signin li {
+	margin: 0 0 6px 0;
+	padding: 0;
+}
+form.signin li.input label {
+	display: block;
+}
+form.signin li.submit {
+	margin-bottom: 0;
+}
+input {
+	width: 6.2em;
 }
 input.name,
 input.phone
@@ -402,9 +461,12 @@ input.amount
 {
     width: 6em;
 }
+input.medium
+{
+	width: 180px;
+}
 input.disabled
 {
-    color: #036;
     font-weight: bold;
     background: transparent;
     border: none;

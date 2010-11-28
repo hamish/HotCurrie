@@ -11,11 +11,24 @@
     <p><a href="{{ url_for('admin-load-toc') }}">Load the Toc</a></p>
     <p><a href="{{ url_for('admin-page-upgrade') }}">Upgrade Pages</a></p>
     
-    Test IPN
-    <form method="POST" action="/paypal/ipn">
-    email address: <input type="text" name="payer_email">
-    <input type="submit" />
+       
+    Test Paypal <form method="GET" action="https://www.paypal.com/cgi-bin/webscr">
+    <input type="hidden" name="cancel_return" value="http://stonewareglazes.appspot.com/auth/login">
+    <input type="hidden" name="return" value="http://stonewareglazes.appspot.com/thanks">
+    <input type="hidden" name="business" value="ian-paypal@currie.to">
+    <input type="hidden" name="item_name" value="Account for online access to Stoneware Glazes">
+    <input type="hidden" name="bn" value="StonewareGlazes_Online">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="custom" value="AccountSignup">
+    <input type="hidden" name="amount" value="0.01">
+    <input type="hidden" name="notify_url" value="http://stonewareglazes.appspot.com/paypal/ipn">
+    <input type="hidden" name="rm" value="1">
+    <input type="hidden" name="no_shipping" value="1">
+    <input type="hidden" name="currency_code" value="AUD">
+    <input type="submit" value="Test Paypal"/>
+
     </form>
+    
     Upload Book Page
     <p>
     <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">

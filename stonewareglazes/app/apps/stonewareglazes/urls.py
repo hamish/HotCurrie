@@ -39,7 +39,8 @@ def get_rules(app):
             #Rule('/admin/load/index', endoint='admin-load-index', handler='handlers.LoadIndexHandler'),
             Rule('/admin/page/upgrade', endpoint='admin-page-upgrade', handler='dataloader.UpdatePageHandler'),
             
-            Rule('/paypal/ipn', endpoint='ipn', handler='handlers.IpnHandler'),
+            Rule('/paypal/ipn', endpoint='ipn', handler='handlers.PaypalIPNHandler'),
+            Rule('/thanks', endpoint='ipn', handler='handlers.PaymentCompleteHandler'),
 
             #Rule('/', endpoint='home', handler='MainHandler'),
             Rule('/book/', endpoint='book', handler='handlers.BookHandler'),
