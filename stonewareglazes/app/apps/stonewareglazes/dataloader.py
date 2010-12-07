@@ -7,7 +7,7 @@ class UpdatePageHandler(RequestHandler):
     def get(self, **kwargs):
         pages = Page.all()
         for page in pages:
-            if (page.sequenceNumber >=36) and (page.sequenceNumber < 222):
+            if (page.sequenceNumber >=49) and (page.sequenceNumber < 222):
                 page.loginRequired = True
             else:
                 page.loginRequired=False
