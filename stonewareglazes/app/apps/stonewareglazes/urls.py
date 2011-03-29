@@ -22,7 +22,17 @@ def get_rules(app):
     """
     rules = [
         HandlerPrefix('apps.stonewareglazes.', [
+            # Main Site
             Rule('/', endpoint='home', handler='handlers.HomeHandler'),
+            Rule('/book/', endpoint='book', handler='handlers.BookHandler'),
+            Rule('/book/index', endpoint='book-index', handler='handlers.IndexHandler'),
+            Rule('/book/toc', endpoint='book-toc', handler='handlers.TocHandler'),
+            Rule('/book/page/<number>', endpoint='page_def', handler='handlers.PageHandler'),
+            Rule('/book/page/<number>/<size>', endpoint='page', handler='handlers.PageHandler'),
+            Rule('/book/index', endpoint='book-index', handler='handlers.IndexHandler'),
+            
+            
+            # Auth
             Rule('/auth/login', endpoint='auth/login', handler='handlers.LoginHandler'),
             Rule('/auth/logout', endpoint='auth/logout', handler='handlers.LogoutHandler'),
             Rule('/auth/signup', endpoint='auth/signup', handler='handlers.SignupHandler'),
@@ -30,28 +40,22 @@ def get_rules(app):
             Rule('/auth/pay', endpoint='auth/pay', handler='handlers.PaymentHandler'),
 
 
-            Rule('/content', endpoint='content/index', handler='handlers.ContentHandler'),
+            # Admin
             Rule('/admin', endpoint='admin', handler='handlers.AdminHandler'),
             Rule('/admin/user', endpoint='admin-user', handler='handlers.AdminUserHandler'),
             Rule('/admin/index', endpoint='admin-index', handler='handlers.AdminIndexHandler'),
+            Rule('/upload', endpoint='blobstore/upload', handler='handlers.UploadHandler'),
+
             Rule('/admin/load/index', endpoint='admin-load-index', handler='dataloader.LoadIndexHandler'),
             Rule('/admin/load/toc', endpoint='admin-load-toc', handler='dataloader.LoadTocHandler'),
-            #Rule('/admin/load/index', endoint='admin-load-index', handler='handlers.LoadIndexHandler'),
             Rule('/admin/page/upgrade', endpoint='admin-page-upgrade', handler='dataloader.UpdatePageHandler'),
             
-            Rule('/paypal/ipn', endpoint='ipn', handler='handlers.PaypalIPNHandler'),
-            Rule('/thanks', endpoint='ipn', handler='handlers.PaymentCompleteHandler'),
+            #Paypal
+            Rule('/paypal/ipn', endpoint='ipn', handler='paypal.PaypalIPNHandler'),
+            Rule('/thanks', endpoint='ipn-thanks', handler='paypal.PaymentCompleteHandler'),
 
-            #Rule('/', endpoint='home', handler='MainHandler'),
-            Rule('/book/', endpoint='book', handler='handlers.BookHandler'),
-            Rule('/book/index', endpoint='book-index', handler='handlers.IndexHandler'),
-            Rule('/book/toc', endpoint='book-toc', handler='handlers.TocHandler'),
-            Rule('/book/page/<number>', endpoint='page_def', handler='handlers.PageHandler'),
-            Rule('/book/page/<number>/<size>', endpoint='page', handler='handlers.PageHandler'),
-            #Rule('/admin/', endpoint='home', handler='AdminHandler'),
-            Rule('/upload', endpoint='blobstore/upload', handler='handlers.UploadHandler'),
-            
-            Rule('/book/index', endpoint='book-index', handler='handlers.IndexHandler'),
+            #Unused
+            #Rule('/content', endpoint='content/index', handler='handlers.ContentHandler'),
 
         ]),
     ]
