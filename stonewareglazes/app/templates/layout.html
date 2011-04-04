@@ -8,13 +8,7 @@
         <div class="yui-d1">
             <div class="title">
                 <div class="user-status">
-                    <p>{% if current_user or auth_session -%}
-                        {% if current_user -%}
-                            Signed in as <span class="user_email">{{ current_user.username|e }}</span> |
-                        {%- endif %} <a href="{{ logout_url }}">Sign out</a>
-                    {% else %}
-                        Hi, there. <a href="{{ login_url }}">Sign in</a>
-                    {% endif %}
+                    <p>
                     </p>
                 </div>
             </div>
@@ -30,6 +24,7 @@
                         <li> <a href="{{goolge_logout_url}}">Google logout</a></li>
                         <li> <a href="{{ url_for('book') }}">List of Pages</a></li>
                         {% endif %}
+                        
                     </ul>
             </div>
 
@@ -40,7 +35,9 @@
         </div>
         
         <div class="footer">
-    	    <p>Powered by <a href="http://www.tipfy.org/">tipfy</a>.</p>
+            <p>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
+            </p>
         </div>
 
         {%- block body_extra %}

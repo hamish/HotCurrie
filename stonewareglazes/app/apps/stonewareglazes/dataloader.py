@@ -2,17 +2,15 @@
 from tipfy import (RequestHandler, RequestRedirect, Response, abort,
     cached_property, redirect, redirect_to, url_for)
 from apps.stonewareglazes.Model import IndexItem, Page, TocItem
+from google.appengine.ext import db
 
 class UpdatePageHandler(RequestHandler):
     def get(self, **kwargs):
         pages = Page.all()
         for page in pages:
-            if (page.sequenceNumber >=49) and (page.sequenceNumber < 222):
-                page.loginRequired = True
-            else:
                 page.loginRequired=False
             page.put()
-        response = redirect_to('admin')
+        response = redirect_to('admin')cd de    
         response.data = ''
         return response
     
@@ -21,7 +19,7 @@ class LoadTocHandler(RequestHandler):
         items=[
                [1,"", "CONTENTS",""],
                [3,"", "FOREWORD",""],
-               [3,"", "EXPLANATORY OUTLINE",""],
+               [3,"", "EXPLANATORY OUTLINE","XI"],
                [5,"", "Practical Guide.",""],
                [5,"", "Base glazes - a key to understanding glaze principles.",""],
                [5,"", "Limits. ",""],
@@ -235,8 +233,14 @@ class LoadTocHandler(RequestHandler):
 
                [3,"", "INDEX","209"],
 	       ]
-
-               
+        try:
+            while True:
+                q = db.GqlQuery("SELECT __key__ FROM TocItem")
+                assert q.count()
+                db.delete(q.fetch(200))
+        except Exception, e:
+            pass
+            
         seq=0
         for i in items:
             seq=seq+10
