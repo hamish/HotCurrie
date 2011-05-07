@@ -130,12 +130,13 @@ class BookHandler(PageListHandler):
         processedPages = self.getPages()
         arguments={'pages': self.getPages()}            
         return self.render_response('Book.html', **arguments)
+
 class IndexListHandler(BaseHandler):
     def getIndexItems(self):
         items = IndexItem.gql('ORDER BY sequenceNumber')
         processedItems=[]
         for item in items:
-            reader = csv.reader([item.pageNumbers], skipinitialspace=True)
+            reader = csv.reader([item.pageNumbers.strip()], skipinitialspace=True)
             pageNumberList= list(reader)[0]
             p={
                'label': item.label,
@@ -143,6 +144,7 @@ class IndexListHandler(BaseHandler):
                }
             processedItems.append(p)
         return processedItems
+
 class IndexHandler(IndexListHandler):
     def get(self, **kwargs):
         context = {
@@ -351,6 +353,7 @@ class UploadHandler(BaseHandler, BlobstoreUploadMixin):
         # Clear the response body.
         response.data = ''
         return response
+
 class PageHandler(BaseHandler, BlobstoreDownloadMixin):
     #def get(self, **kwargs):
     def get(self, number='1', size='24'):
@@ -360,11 +363,11 @@ class PageHandler(BaseHandler, BlobstoreDownloadMixin):
         pages = Page.gql("WHERE pageLabel=:1", pageLabel)
         page = pages.get()
         
-        if (page.loginRequired):
-            logging.debug("loginRequired:")
-            if not self.auth_current_user:
-                logging.debug("failed:")
-                return redirect(self.auth_login_url())
+        #if (page.loginRequired):
+        #    logging.debug("loginRequired:")
+        #    if not self.auth_current_user:
+        #        logging.debug("failed:")
+        #        return redirect(self.auth_login_url())
         url = images.get_serving_url(page.blobKey, size=IMG_SERVING_SIZES[sizeIndex], crop=False)
         
         if (containsAny(pageLabel, '0123456789')):

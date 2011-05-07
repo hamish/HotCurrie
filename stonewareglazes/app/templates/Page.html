@@ -28,6 +28,27 @@
 	<img src="{{pageImageURL}}">
     </td>
   </tr>
+  <tr>
+    <td class="prev">
+      {% if hasPrevious %}
+      <a href="{{previousURL}}">< previous</a>
+      {% endif %}
+    </td>
+    <td class="size">
+      {% if hasBigger %}
+      <a href="{{biggerURL}}">bigger</a>
+      {% endif %}
+      {% if hasSmaller %}
+      <a href="{{smallerURL}}">smaller<a/>
+      {% endif %}
+    </td>
+    <td class="next">
+        {% if hasNext %}
+        <a href="{{nextURL}}">next ></a>
+        {% endif %}
+    </td>
+  </tr>
+
 
 </table>
 

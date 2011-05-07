@@ -12,7 +12,7 @@
     <a href="http://creativecommons.org/licenses/by-sa/3.0/">creative commons</a> 
     license. This means that you are free to remix, tweak, and build upon the 
     work even for commercial purposes, as long as you credit Ian Currie and license 
-    your new creations under the identical terms.
+    your new creations under identical terms.
     </p> 
     
     <p>If you just want to get started reading the book, 
@@ -24,13 +24,25 @@
 
     <p>Links to Chapters:  If you want to read about particular types of 
     stoneware glazes, most of these you can find listed in the Chapter Headings 
-    in the Table of Contents.
+    in the <a href="{{ url_for('book-toc') }}">Table Of Contents</a>.
     </p>
 
-    <p>Links to Pages:  For more detailed searches go to the Index and click 
+
+    <p>Links to Pages:  For more detailed searches go to the 
+    <a href="{{ url_for('book-index') }}">Index</a> and click 
     on the link.  Each page is provided as an image, so it is not possible to 
     do a "word search" through the text.  However you can search from the Index 
     for any Index word, and the link will take you directly to the relevant page.</p>
 
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_donations">
+<input type="hidden" name="business" value="ian-paypal@currie.to">
+<input type="hidden" name="lc" value="AU">
+<input type="hidden" name="item_name" value="Stoneware Glazes Online">
+<input type="hidden" name="no_note" value="0">
+<input type="hidden" name="currency_code" value="AUD">
+<input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest">
+
+</form>
 {% endblock %}
 

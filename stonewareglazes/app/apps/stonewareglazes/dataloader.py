@@ -8,9 +8,9 @@ class UpdatePageHandler(RequestHandler):
     def get(self, **kwargs):
         pages = Page.all()
         for page in pages:
-                page.loginRequired=False
+            page.loginRequired=False
             page.put()
-        response = redirect_to('admin')cd de    
+        response = redirect_to('admin')
         response.data = ''
         return response
     
@@ -532,7 +532,7 @@ class LoadIndexHandler(RequestHandler):
             #logging.debug("attempting: " + i[0])
             item= IndexItem()
             item.label=i[0]
-            item.pageNumbers=i[1].upper()
+            item.pageNumbers=i[1].upper().strip()
             item.sequenceNumber=seq
             item.put()
         response = redirect_to('admin-index')

@@ -149,6 +149,13 @@ div.menu ul a.active {
     color: #c97653;
 }
 
+p.donate {
+    width: 160px;
+    color: #666;
+    font-size: 0.85em;
+    font-style: italic;
+}
+
 /***** content *****/
 div.wrapper {
     width: 980px;
