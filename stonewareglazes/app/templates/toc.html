@@ -4,32 +4,32 @@
 <div class="toc">
     <table>
     <tr><td>&nbsp</td><td>
-    {% for item in tocItems %}
+    {% for item in tocItems -%}
 
-    {% if item.styleNumber == 1  %}
+    {%- if item.styleNumber == 1  -%}
     <h1>
-    {% elif item.styleNumber == 2 %}
+    {%- elif item.styleNumber == 2 -%}
     <h2>
-    {% elif item.styleNumber == 3 %}
+    {%- elif item.styleNumber == 3 -%}
     <h3>
-    {% elif item.styleNumber == 5 %}
-    {% endif %}
+    {%- elif item.styleNumber == 5 -%}
+    {%- endif -%}
     
-    {% if item.blockHeading %}</td></tr><tr><th>{{ item.blockHeading }}</th><td>{% endif %}
-    {% if item.pageNumber %}<a class="chaptername" href="{{ url_for('page_def', number=item.pageNumber) }}">{% endif %}
+    {%- if item.blockHeading %}</td></tr><tr><th>{{ item.blockHeading }}</th><td>{% endif -%}
+    {%- if item.pageNumber %}<a class="chaptername" href="{{ url_for('page_def', number=item.pageNumber) }}">{% endif -%}
    {{ item.label }}
-    {% if item.pageNumber %} </a>{% endif %}
-    {% if item.blockHeading %}</li>{% endif %}
+    {%- if item.pageNumber %} </a>{% endif -%}
+    {%- if item.blockHeading %}</li>{% endif -%}
     
-    {% if item.styleNumber == 1  %}
+    {%- if item.styleNumber == 1  -%}
     </h1>
-    {% elif item.styleNumber == 2 %}
+    {%- elif item.styleNumber == 2 -%}
     </h2>
-    {% elif item.styleNumber == 3 %}
+    {%- elif item.styleNumber == 3 -%}
     </h3>
-    {% elif item.styleNumber == 5 %}
-    {% endif %}
-    {% endfor %}
+    {%- elif item.styleNumber == 5 -%}
+    {%- endif -%}
+    {%- endfor %}
     </td></tr></table>
 </div>
 {% endblock %}
